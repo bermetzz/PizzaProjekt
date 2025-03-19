@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login</title>
+    <link rel="stylesheet" href="/css/style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
+</head>
+<body>
+<form th:action="@{/login}" method="post">
+    <h1>Login</h1>
+    <label for="username">Geben Sie Ihren Benutzernamen ein:</label>
+    <input type="text" id="username" name="username" placeholder="Benutzername" required>
+    <label for="password">Passwort festlegen:</label>
+    <input type="password" id="password" name="password" placeholder="Passwort" required>
+<!--    <div>-->
+<!--        <label>-->
+<!--            <input type="checkbox" name="remember-me"> Remember me-->
+<!--        </label>-->
+<!--    </div>-->
+    <button type="submit">Einloggen</button>
+    <div class="container">
+        <p>Sie haben noch kein Konto?  <a href="/register">Registrieren</a></p>
+<!--        <p><a href="#">Forgot password?</a></p>-->
+    </div>
+</form>
+</body>
+</html>

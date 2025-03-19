@@ -1,0 +1,204 @@
+:root {
+    --background-color-light: #F4F5F9;
+    --text-color-light: #222327;
+    --primary-color-light: #F2B5B2;
+    --secondary-color-light: #B4D7DB;
+    --base-color-light: #FFFFFF;
+
+
+
+    --background-color-dark: #121212;
+    --text-color-dark: #ffffff;
+}
+
+body {
+    background-color: var(--background-color-light);
+    color: var(--text-color-light);
+}
+
+.dark-mode {
+    background-color: var(--background-color-dark);
+    color: var(--text-color-dark);
+}
+
+.background-primary {
+    background-color: var(--primary-color-light);
+}
+
+.background-primary:hover {
+    background-color: var(--primary-color-light);
+}
+
+.background-base {
+    background-color: var(--base-color-light);
+}
+
+.btn-icon-mode {
+    background: none;
+    border: none;
+    padding: 5px;
+    cursor: pointer;
+    font-size: 1.5rem;
+    /* Adjust size as needed */
+}
+
+.btn-icon-mode:hover {
+    color: var(--secondary-color-light);
+    /* Optional hover effect */
+}
+
+.item-card {
+    background-color: rgba(180, 215, 219, 0.3);
+    transition: ease-in transform 200ms;
+}
+
+.item-card:hover {
+    transform: translateY(-10px);
+}
+
+
+.pizza-size-selector {
+    border-radius: 50px;
+    /* Rounded edges for the entire group */
+    overflow: hidden;
+    background: linear-gradient(90deg, rgba(0, 0, 0, 0.05) 0%, rgba(0, 0, 0, 0.1) 100%);
+    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.pizza-size-selector .btn {
+    border: none;
+    /* Remove button borders */
+    border-radius: 0;
+    /* Reset border radius on buttons */
+    transition: background-color 0.3s, color 0.3s;
+    font-size: 1rem;
+    /* Adjust text size */
+    font-weight: 500;
+    /* Make the text bold for better visibility */
+}
+
+.pizza-size-selector .btn-outline-primary {
+    color: #6c757d;
+    /* Inactive button color */
+    background-color: transparent;
+}
+
+.pizza-size-selector .btn-outline-primary:hover {
+    background-color: rgba(0, 0, 0, 0.05);
+    color: #495057;
+    /* Slightly darker text */
+}
+
+.pizza-size-selector .btn-check:checked+.btn {
+    background-color: white;
+    /* Selected button background */
+    color: var(--primary-color-light);
+    /* Active button text color */
+    border-radius: 25px;
+    /* Rounded active button */
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+    /* Add shadow to active button */
+}
+
+.item-card__image {
+    height: 10rem;
+    object-fit: cover;
+}
+
+
+.footer__container {
+    border-top: 1px solid lightgray;
+    padding: 20px 0;
+}
+
+.floating-button {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    z-index: 10;
+    background-color: var(--secondary-color-light);
+}
+
+.floating-button:hover {
+    background-color: var(--secondary-color-light);
+}
+
+.floating-button__badge {
+    font-size: 14px;
+    min-width: 25px;
+    height: 25px;
+    line-height: 20px;
+    padding: 3px;
+    text-align: center;
+    border-radius: 50%;
+    background-color: var(--primary-color-light);
+}
+
+/* .card__product-image{
+    width: 150px;
+    height: 80px;
+    object-fit: cover;
+    display: inline-block;
+} */
+
+.cart__product-image {
+    width: 60px;
+    /* Set image size */
+    height: 60px;
+    object-fit: cover;
+    border-radius: 5px;
+    /* Add rounded corners for better aesthetics */
+}
+
+.cart__product {
+    align-items: center;
+}
+
+.border-bottom {
+    border-bottom: 1px solid #ddd;
+}
+
+.text-muted {
+    font-size: 0.85rem;
+    /* Slightly smaller font for subtler text */
+}
+
+.btn-counter {
+    padding: 0 !important;
+    width: 25px;
+    height: 25px;
+}
+
+
+.button-primary {
+    outline: none;
+    background-color: var(--primary-color-light);
+    color: var(--text-color-light);
+
+}
+
+.button-primary:hover, .button-primary:active {
+    background-color: var(--primary-color-light) !important;
+    border-color: var(--primary-color-light) !important;
+}
+
+.button-secondary {
+    outline: none;
+    background-color: var(--secondary-color-light);
+    color: var(--text-color-light);
+
+}
+
+.button-secondary:hover, .button-secondary:active {
+    background-color: var(--secondary-color-light) !important;
+    border-color: var(--secondary-color-light) !important;
+}
+
+.swal-wide3333 {
+    max-width: 500px; /* Adjust width as needed */
+}
+
+.swal-select3333 select {
+    max-height: 150px; /* Set maximum height */
+    overflow-y: auto;
+}

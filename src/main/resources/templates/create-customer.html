@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="de" xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <title>Neuen Kunden erstellen</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="/css/admin.css">
+</head>
+<body>
+<div th:replace="fragments/header :: header"></div>
+<div class="container mt-4">
+  <h1 class="mb-4">Neuen Kunden erstellen</h1>
+  <form th:action="@{/admin/customers/new}" th:object="${customer}" method="post">
+    <!-- Поля для данных пользователя -->
+    <div class="mb-3">
+      <label class="form-label">Vorname</label>
+      <input type="text" name="deliveryAddresses[0].firstName" class="form-control" required>
+    </div>
+    <div class="mb-3">
+      <label class="form-label">Name</label>
+      <input type="text" name="deliveryAddresses[0].lastName" class="form-control" required>
+    </div>
+    <div class="mb-3">
+      <label for="username" class="form-label">Benutzername</label>
+      <input type="text" id="username" th:field="*{username}" class="form-control" required>
+    </div>
+    <div class="mb-3">
+      <label for="password" class="form-label">Passwort</label>
+      <input type="password" id="password" th:field="*{password}" class="form-control" required>
+    </div>
+    <div class="mb-3">
+      <label for="role" class="form-label">Rolle</label>
+      <select id="role" th:field="*{role}" class="form-control" required>
+        <option value="USER">Benutzer</option>
+        <option value="ADMIN">Admin</option>
+      </select>
+    </div>
+    <div class="mb-3">
+      <label for="enabled" class="form-label">Aktiviert</label>
+      <select id="enabled" th:field="*{enabled}" class="form-control" required>
+        <option value="true">Ja</option>
+        <option value="false">Nein</option>
+      </select>
+    </div>
+
+    <h2>Lieferadressen</h2>
+    <div id="address-sections">
+      <div class="address-section">
+        <div class="mb-3">
+          <label class="form-label">Straße</label>
+          <input type="text" name="deliveryAddresses[0].street" class="form-control" required>
+        </div>
+        <div class="mb-3">
+          <label class="form-label">Stadt</label>
+          <input type="text" name="deliveryAddresses[0].city" class="form-control" required>
+        </div>
+        <div class="mb-3">
+          <label class="form-label">Postleitzahl</label>
+          <input type="text" name="deliveryAddresses[0].postalCode" class="form-control" required>
+        </div>
+        <div class="mb-3">
+          <label class="form-label">Land</label>
+          <input type="text" name="deliveryAddresses[0].country" class="form-control" required>
+        </div>
+        <button type="button" class="btn btn-danger remove-address-btn">Adresse löschen</button>
+      </div>
+    </div>
+    <div class="text-center">
+      <button type="button" class="btn btn-secondary mb-3" id="add-address-btn">Neue Adresse hinzufügen</button>
+    </div>
+
+    <div class="text-center">
+      <button type="submit" class="btn custom-add-btn mb-3">Kunde erstellen</button>
+    </div>
+  </form>
+</div>
+
+<script>
+  let addressIndex = 0;
+
+
+  document.getElementById('add-address-btn').addEventListener('click', function () {
+    addressIndex++;
+    const addressContainer = document.createElement('div');
+    addressContainer.classList.add('address-section', 'mt-4');
+    addressContainer.innerHTML = `
+        <div class="mb-3">
+            <label class="form-label">Vorname</label>
+            <input type="text" name="deliveryAddresses[${addressIndex}].firstName" class="form-control" required>
+        </div>
+        <div class="mb-3">
+            <label class="form-label">Name</label>
+            <input type="text" name="deliveryAddresses[${addressIndex}].lastName" class="form-control" required>
+        </div>
+        <div class="mb-3">
+            <label class="form-label">Straße</label>
+            <input type="text" name="deliveryAddresses[${addressIndex}].street" class="form-control" required>
+        </div>
+        <div class="mb-3">
+            <label class="form-label">Stadt</label>
+            <input type="text" name="deliveryAddresses[${addressIndex}].city" class="form-control" required>
+        </div>
+        <div class="mb-3">
+            <label class="form-label">Postleitzahl</label>
+            <input type="text" name="deliveryAddresses[${addressIndex}].postalCode" class="form-control" required>
+        </div>
+        <div class="mb-3">
+            <label class="form-label">Land</label>
+            <input type="text" name="deliveryAddresses[${addressIndex}].country" class="form-control" required>
+        </div>
+        <button type="button" class="btn btn-danger remove-address-btn mt-2">Adresse löschen</button>
+    `;
+    document.getElementById('address-sections').appendChild(addressContainer);
+
+    addressContainer.querySelector('.remove-address-btn').addEventListener('click', function () {
+      addressContainer.remove();
+    });
+  });
+
+  document.querySelectorAll('.remove-address-btn').forEach(btn => {
+    btn.addEventListener('click', function () {
+      btn.closest('.address-section').remove();
+    });
+  });
+</script>
+
+</body>
+</html>

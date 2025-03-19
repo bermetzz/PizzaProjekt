@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Lieferadressenformular</title>
+  <link rel="stylesheet" href="/css/profile_style.css">
+</head>
+<body>
+<div class="container">
+  <h1 th:text="${#strings.isEmpty(deliveryAddress.id) ? 'Neue Adresse hinzufügen' : 'Adresse bearbeiten'}"></h1>
+  <form th:action="${#strings.isEmpty(deliveryAddress.id) ? '/delivery-addresses/add' : '/delivery-addresses/edit/' + deliveryAddress.id}"
+        th:object="${deliveryAddress}"
+        method="post">
+    <input type="hidden" th:field="*{id}" />
+
+    <label for="street">Straße:</label>
+    <input type="text" id="street" th:field="*{street}" placeholder="Straßennamen eingeben" required />
+
+    <label for="city">Stadt:</label>
+    <input type="text" id="city" th:field="*{city}" placeholder="Stadt eingeben" required />
+
+    <label for="postalCode">Postleitzahl:</label>
+    <input type="text" id="postalCode" th:field="*{postalCode}" placeholder="Postleitzahl eingeben" required />
+
+    <label for="country">Land:</label>
+    <input type="text" id="country" th:field="*{country}" placeholder="Land eingeben" required />
+
+    <div class="button-container">
+      <button type="submit">Speichern</button>
+      <a href="/profile" class="button">Stornieren</a>
+    </div>
+  </form>
+</div>
+</body>
+</html>

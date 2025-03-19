@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Profil</title>
+    <link rel="stylesheet" href="/css/profile_style.css">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css" rel="stylesheet">
+    <style>
+        .back-arrow {
+            position: fixed;
+            top: 20px;
+            left: 20px;
+            display: flex;
+            align-items: center;
+            text-decoration: none;
+            color: black;
+            font-size: 18px;
+            font-weight: bold;
+            z-index: 1000;
+        }
+
+        .back-arrow i {
+            font-size: 24px;
+            margin-right: 8px;
+        }
+
+        .back-arrow:hover {
+            color: pink;
+        }
+
+    </style>
+</head>
+<body>
+<a href="/" class="back-arrow">
+    <i class="bi bi-arrow-left-circle"></i>
+</a>
+<div class="container">
+    <h1>Ihr Profil</h1>
+    <form th:action="@{/profile/update}" th:object="${customer}" method="post">
+        <label for="firstName">Vorname</label>
+        <input type="text" id="firstName" th:field="*{firstName}" required />
+
+        <label for="lastName">Nachname</label>
+        <input type="text" id="lastName" th:field="*{lastName}" required />
+
+        <label for="email">Email</label>
+        <input type="email" id="email" th:field="*{email}" required />
+
+        <label for="username">Username</label>
+        <input type="text" id="username" th:field="*{username}" required />
+
+        <button type="submit">Änderungen Speichern</button>
+    </form>
+
+    <a href="/change-password">Möchten Sie das Passwort ändern?</a>
+
+    <div class="address-container">
+        <h2>Meine Lieferadresse</h2>
+        <div th:each="address : ${customer.deliveryAddresses}" class="address">
+            <p th:text="${address.street + ', ' + address.city + ', ' + address.postalCode + ', ' + address.country}"></p>
+            <a th:href="@{/delivery-addresses/edit/{id}(id=${address.id})}">Bearbeiten</a>
+            <a th:href="@{/delivery-addresses/delete/{id}(id=${address.id})}">Löschen</a>
+        </div>
+        <a href="/delivery-addresses/add" class="add-address">+ Lieferadresse hinzufügen</a>
+    </div>
+</div>
+</body>
+</html>

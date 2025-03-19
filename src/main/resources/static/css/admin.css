@@ -1,0 +1,69 @@
+
+:root {
+    --background-color-light: #F4F5F9;
+    --text-color-light: #222327;
+    --primary-color-light: #F2B5B2;
+    --secondary-color-light: #B4D7DB;
+    --base-color-light: #FFFFFF;
+}
+
+body {
+    background: url('/images/background.png') no-repeat center center fixed;
+    background-size: cover;
+    background-color: var(--background-color-light);
+    color: var(--text-color-light);
+}
+
+.form-container {
+    background-color: rgba(255, 255, 255, 0.5);
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.2);
+}
+
+.custom-edit-btn {
+    background-color: #F2B5B2;
+        color: #000000;
+        border: none;
+}
+.custom-edit-btn:hover {
+    background-color: #f67a73;
+    color: #000000;
+}
+
+.custom-add-btn {
+    background-color: var(--primary-color-light);
+    color: var(--text-color-light);
+    border: none;
+    padding: 10px 20px;
+    border-radius: 5px;
+    transition: background-color 0.3s ease;
+
+}
+
+.custom-add-btn:hover {
+    background-color: #f67a73;
+    color: #f8f9fa;
+}
+
+.admin-link {
+    color: #0d6efd;
+    text-decoration: none;
+    font-weight: normal;
+    margin-top: 6px;
+    display: inline-block;
+}
+
+.admin-link:hover {
+    text-decoration: underline;
+    color: #084298;
+}
+
+
+.remove-address-btn {
+    background-color: var( --primary-color-light);
+    color: #000000;
+    border: none;
+}
+
+

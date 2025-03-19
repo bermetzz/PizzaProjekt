@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Registrierung</title>
+    <link rel="stylesheet" href="/css/style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
+</head>
+<body>
+<!-- Отображение ошибки -->
+<div th:if="${error}" style="color: red;">
+    <p th:text="${error}"></p>
+</div>
+
+<form th:action="@{/register}" method="post">
+    <h1>Registrierung</h1>
+    <label for="firstName">Geben Sie Ihren Vornamen ein:</label>
+    <input type="text" id="firstName" name="firstName" placeholder="Vorname" required>
+    <label for="lastName">Geben Sie Ihren Nachnamen ein:</label>
+    <input type="text" id="lastName" name="lastName" placeholder="Nachname" required>
+    <label for="email">Geben Sie Ihre E-Mail ein:</label>
+    <input type="email" id="email" name="email" placeholder="Email" required>
+    <label for="username">Geben Sie Ihren Benutzernamen ein:</label>
+    <input type="text" id="username" name="username" placeholder="Benutzername" required>
+    <label for="password">Passwort festlegen:</label>
+    <input type="password" id="password" name="password" placeholder="Passwort" required>
+    <button type="submit">Registrieren</button>
+    <div class="container">
+        <p>Haben Sie schon ein Konto? <a href="/login">Login</a></p>
+    </div>
+</form>
+</body>
+</html>

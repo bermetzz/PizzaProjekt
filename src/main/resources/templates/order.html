@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="de" xmlns:th="http://www.thymeleaf.org">
+<div th:replace="fragments/head :: head"></div>
+<body class="d-flex flex-column min-vh-100" th:data-logged-in="${user != null}">
+<div th:insert="fragments/header :: header"></div>
+
+<main class="container my-4">
+    <div class="header-bar">
+        <h2>Bestellungen</h2>
+    </div>
+    <div th:if="${orders != null}">
+        <div th:each="order : ${orders}" class="order-card my-3 p-3 border rounded">
+            <h4 th:text="'Bestellnummer: ' + ${order.id}"></h4>
+            <p th:text="'Bestelldatum: ' + ${order.formattedDate}"></p>
+            <hr>
+            <div th:each="item : ${order.items}" class="product-item d-flex gap-3">
+                <img th:src="${item.imagePath}" alt="Pizza Image" class="img-thumbnail" style="width: 80px;">
+                <div>
+                    <h6 th:text="${item.pizzaName}"></h6>
+                    <p th:text="'Menge: ' + ${item.quantity} + ' | Preis: ' + ${item.unitPrice} + ' som'"></p>
+                </div>
+                <div class="ms-auto text-end">
+                    <p th:text="${item.totalPrice} + ' som'"></p>
+                </div>
+            </div>
+            <hr>
+            <p th:text="'Gesamt: ' + ${order.totalAmount} + ' som'"></p>
+        </div>
+    </div>
+</main>
+
+
+
+<div th:replace="fragments/footer :: footer"></div>
+</body>
+</html>

@@ -1,0 +1,87 @@
+:root {
+    --background-color-light: #F4F5F9;
+    --text-color-light: #222327;
+    --primary-color-light: #F2B5B2;
+    --secondary-color-light: #B4D7DB;
+    --base-color-light: #FFFFFF;
+}
+
+body {
+    font-family: 'Roboto', sans-serif;
+    background: url('/images/background.png') no-repeat center center fixed;
+    background-size: cover;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    color: var(--base-color-light);
+}
+
+form {
+    background: rgba(255, 255, 255, 0.9);
+    padding: 30px;
+    border-radius: 10px;
+    box-shadow: 0 8px 15px rgba(0, 0, 0, 0.2);
+    width: 400px;
+    max-width: 100%;
+    color: #333333;
+}
+
+h1 {
+    text-align: center;
+    margin-bottom: 20px;
+    color: var(--text-color-light);
+}
+
+label {
+    display: block;
+    margin: 15px 0 5px;
+    font-weight: bold;
+    color: #555555;
+}
+
+input[type="text"],
+input[type="password"],
+input[type="email"] {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 15px;
+    border: 1px solid #cccccc;
+    border-radius: 5px;
+    box-sizing: border-box;
+}
+
+button {
+    width: 100%;
+    padding: 10px;
+    background-color: var(--primary-color-light);
+    border: none;
+    color: var(--base-color-light);
+    font-size: 16px;
+    border-radius: 5px;
+    cursor: pointer;
+    margin-top: 10px;
+    font-weight: bold;
+}
+
+button:hover {
+    background-color: var(--primary-color-light);
+}
+
+.container {
+    text-align: center;
+    margin-top: 15px;
+    font-size: 14px;
+}
+
+.container a {
+    text-decoration: none;
+    color: var(--primary-color-light);
+    font-weight: bold;
+}
+
+.container a:hover {
+    text-decoration: underline;
+}

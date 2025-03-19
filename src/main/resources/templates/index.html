@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="de" xmlns:th="http://www.thymeleaf.org">
+<div th:replace="fragments/head :: head"></div>
+<body class="d-flex flex-column min-vh-100" th:data-logged-in="${user != null}">
+
+<div th:insert="fragments/header :: header"></div>
+
+<main class="container mt-4 position-relative pb-5 min-vh-100">
+    <!-- Sidebar toggler button -->
+    <button
+            class="btn floating-button"
+            type="button"
+            data-bs-toggle="offcanvas"
+            data-bs-target="#offcanvasRight"
+            aria-controls="offcanvasRight"
+    >
+        <i class="bi bi-cart4"></i>
+
+        <!-- Badge -->
+        <span
+                class="floating-button__badge position-absolute top-0 start-100 translate-middle text-dark flex justify-content-center align-content-center"
+                id="cart-qty"
+        >
+          0
+        </span>
+    </button>
+
+    <!-- Sidebar -->
+    <div
+            class="offcanvas offcanvas-end"
+            tabindex="-1"
+            id="offcanvasRight"
+            aria-labelledby="offcanvasRightLabel"
+    >
+        <div class="offcanvas-header">
+            <h5 class="offcanvas-title" id="offcanvasRightLabel">Warenkorb</h5>
+            <button
+                    type="button"
+                    class="btn-close"
+                    data-bs-dismiss="offcanvas"
+                    aria-label="Close"
+            ></button>
+        </div>
+
+
+
+        <div class="offcanvas-body cart">
+            <h6 class="fw-normal cart-product-count">0 Produkte für 0.00 som;</h6>
+            <div class="cart__product-container">
+                <div th:if="${cartItems != null}" th:each="item : ${cartItems}" class="cart__product d-flex gap-3 py-3 border-bottom">
+                    <img class="cart__product-image" th:src="${item.image}" alt="photo of pizza" />
+                    <div class="flex-grow-1">
+                        <p class="fw-bold mb-1" th:text="${item.name}">Pizza Name</p>
+                        <p class="text-muted mb-2" th:text="${item.size}">Pizza Size</p>
+                        <div class="d-flex justify-content-between align-items-center">
+                            <span class="fw-bold" th:text="${item.price * item.quantity} + ' som'">0.00 som</span>
+                            <div class="d-flex align-items-center">
+                                <button class="btn btn-counter btn-outline-secondary rounded-circle"
+                                        onclick="updateQuantity('${item.pizzaId}', '${item.size}', -1)">-</button>
+                                <span class="px-2" th:text="${item.quantity}">0</span>
+                                <button class="btn btn-counter btn-outline-secondary rounded-circle"
+                                        onclick="updateQuantity('${item.pizzaId}', '${item.size}', 1)">+</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="text-end mt-4">
+                <h6 class="fw-bold cart-total-sum">Summe der Bestellung: 0.00 som;</h6>
+                <button class="btn button-primary w-100 mt-3"
+                        th:if="${user != null}"
+                        onclick="selectAddressAndPlaceOrder()">
+                    Zur Bestellung
+                </button>
+                <p th:if="${user == null}" class="text-danger">Bitte melden Sie sich an, um zu bestellen.</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Address Selection Modal -->
+    <div class="modal fade" id="addressSelectionModal" tabindex="-1" aria-labelledby="addressSelectionModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="addressSelectionModalLabel">Lieferadresse auswählen</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <form id="addressForm">
+                        <label for="addressSelect" class="form-label">Adresse auswählen</label>
+                        <select class="form-select" id="addressSelect" required>
+                            <option value="" disabled selected>Adresse auswählen</option>
+                            <!-- Options will be dynamically added here -->
+                        </select>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                    <button type="button" class="btn btn-primary" id="confirmAddressButton">OK</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 row-cols-lg-4 row-gap-3">
+        <div class="col" th:each="pizza : ${pizzas}">
+            <div class="item-card rounded-4 p-2">
+                <div class="item-card__container rounded-3 overflow-hidden background-base" th:data-id="${pizza.id}">
+                    <div class="p-3">
+                        <img th:src="@{${pizza.imagePath}}"
+                             alt="pizza photo"
+                             class="item-card__image w-100 rounded-2 overflow-hidden"/>
+
+                        <span class="item-card__name fs-5 mt-2 mb-2 d-inline-block"
+                              th:text="${pizza.name}">Pizza Name</span>
+
+                        <div class="pizza-size-selector btn-group w-100 my-3"
+                             role="group"
+                             aria-label="Pizza size selector"
+                             th:data-prices="${pizza.prices}">
+                            <input type="radio" class="btn-check" th:name="'pizzaSize-' + ${pizza.id}"
+                                   th:id="'small-' + ${pizza.id}" value="0" autocomplete="off"
+                                   checked onclick="updatePrice(this)"/>
+                            <label class="btn btn-outline-primary" th:for="'small-' + ${pizza.id}">S</label>
+
+                            <input type="radio" class="btn-check" th:name="'pizzaSize-' + ${pizza.id}"
+                                   th:id="'medium-' + ${pizza.id}" value="1" autocomplete="off"
+                                   onclick="updatePrice(this)"/>
+                            <label class="btn btn-outline-primary" th:for="'medium-' + ${pizza.id}">M</label>
+
+                            <input type="radio" class="btn-check" th:name="'pizzaSize-' + ${pizza.id}"
+                                   th:id="'large-' + ${pizza.id}" value="2" autocomplete="off"
+                                   onclick="updatePrice(this)"/>
+                            <label class="btn btn-outline-primary" th:for="'large-' + ${pizza.id}">L</label>
+                        </div>
+
+                        <button class="item-card__size-button w-100 m-0 outline-none btn rounded background-primary"
+                                onclick="addToCart(this)">
+                            <span th:text="'In den Warenkorb ' + ${pizza.prices[0]} + ' som'" class="price-display">In den Warenkorb</span>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+</main>
+
+
+<div th:replace="fragments/footer :: footer"></div>
+
+<!--<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js"></script>-->
+<!--<script th:if="${user != null}">-->
+<!--    saveCartToDatabase();-->
+<!--</script>-->
+</body>
+</html>
